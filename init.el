@@ -2,6 +2,18 @@
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
+(add-to-list 'load-path "~/.emacs.d/")
 
 (when (equal system-type 'darwin)
   (require 'mac))
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+;; Add in your own as you wish:
+(defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp)
+  "A list of packages to ensure are installed at launch.")
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))

@@ -1,16 +1,24 @@
 
 ;; ----- smex-history -----
 (
- cd
- 5x5
- arp
- dbx
- dig
- erc
- ert
+ package-list-packages
+ load-theme
+ switch-to-buffer
+ eval-buffer
+ save-buffer
+ help-with-tutorial
+ server-start
 )
 
 ;; ----- smex-data -----
 (
- 
+ (server-start . 2)
+ (switch-to-buffer . 4)
+ (help-with-tutorial . 1)
+ (eval-buffer . 3)
+ (save-buffer . 1)
+ (color-theme-print . 2)
+ (color-theme-select . 3)
+ (load-theme . 5)
+ (package-list-packages . 2)
 )
