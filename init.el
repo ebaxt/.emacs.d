@@ -28,3 +28,4 @@
 ;; Remap old M-m to M-i (better mnemonic for back-to-indentation)
 ;; We lose tab-to-tab-stop, which is no big loss in my use cases.
 (global-set-key (kbd "M-i") 'back-to-indentation)
+(load-theme 'misterioso)
