@@ -11,7 +11,9 @@
   (package-refresh-contents))
 
 ;; Add in your own as you wish:
-(defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-bindings iy-go-to-char)
+(defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js
+                                  starter-kit-lisp starter-kit-bindings
+                                  iy-go-to-char clojure-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
