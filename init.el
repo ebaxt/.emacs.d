@@ -13,12 +13,21 @@
 ;; Add in your own as you wish:
 (defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js
                                   starter-kit-lisp starter-kit-bindings
-                                  iy-go-to-char clojure-mode sass-mode nrepl)
+                                  iy-go-to-char clojure-mode sass-mode nrepl
+                                  erlang expand-region ace-jump-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(setq nrepl-popup-stacktraces nil)
+(add-to-list 'same-window-buffer-names "*nrepl'")
+
+;; Expand region
+(global-set-key (kbd "C-@") 'er/expand-region)
+
+(define-key global-map (kbd "C-ø") 'ace-jump-mode)
 
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "C-.") 'hippie-expand)
@@ -43,3 +52,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq slime-net-coding-system 'utf-8-unix)
