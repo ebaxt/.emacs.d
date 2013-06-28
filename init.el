@@ -61,3 +61,5 @@
  )
 
 (setq slime-net-coding-system 'utf-8-unix)
+
+(set-face-attribute 'default nil :height 140)
