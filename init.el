@@ -14,15 +14,22 @@
 (defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js
                                   starter-kit-lisp starter-kit-bindings
                                   iy-go-to-char clojure-mode sass-mode nrepl
-                                  erlang expand-region ace-jump-mode)
+                                  erlang expand-region ace-jump-mode clojure-test-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; NREPL settings
 (setq nrepl-popup-stacktraces nil)
 (add-to-list 'same-window-buffer-names "*nrepl'")
+(add-hook 'nrepl-mode-hook 'paredit-mode)
+(add-hook 'nrepl-interaction-mode-hook
+  'nrepl-turn-on-eldoc-mode)
+
+;; Enable clojure-test-mode
+(add-hook 'clojure-mode-hook 'clojure-test-mode)
 
 ;; Expand region
 (global-set-key (kbd "C-@") 'er/expand-region)
