@@ -26,7 +26,7 @@
 (add-to-list 'same-window-buffer-names "*nrepl'")
 (add-hook 'nrepl-mode-hook 'paredit-mode)
 (add-hook 'nrepl-interaction-mode-hook
-  'nrepl-turn-on-eldoc-mode)
+          'nrepl-turn-on-eldoc-mode)
 
 ;; Enable clojure-test-mode
 (add-hook 'clojure-mode-hook 'clojure-test-mode)
@@ -42,6 +42,20 @@
 ;; M-m: Move to char - similar to "f" in vim
 (global-set-key (kbd "M-m") 'iy-go-to-char)
 (global-set-key (kbd "M-M") 'iy-go-to-char-backward)
+;; Join lines
+(global-set-key (kbd "M-j")
+                (lambda ()
+                  (interactive)
+                  (join-line -1)))
+
+;; Functions (load all files in defuns-dir)
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
+(global-set-key (kbd "C-x -") 'toggle-window-split)
+
 
 ;; Remap old M-m to M-i (better mnemonic for back-to-indentation)
 ;; We lose tab-to-tab-stop, which is no big loss in my use cases.
