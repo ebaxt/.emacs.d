@@ -14,7 +14,8 @@
 (defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js
                                   starter-kit-lisp starter-kit-bindings
                                   iy-go-to-char clojure-mode sass-mode nrepl
-                                  erlang expand-region ace-jump-mode clojure-test-mode)
+                                  erlang expand-region ace-jump-mode clojure-test-mode
+                                  multiple-cursors)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -31,22 +32,7 @@
 ;; Enable clojure-test-mode
 (add-hook 'clojure-mode-hook 'clojure-test-mode)
 
-;; Expand region
-(global-set-key (kbd "C-@") 'er/expand-region)
-
-(define-key global-map (kbd "C-ø") 'ace-jump-mode)
-
-;; Completion that uses many different methods to find options.
-(global-set-key (kbd "C-.") 'hippie-expand)
-
-;; M-m: Move to char - similar to "f" in vim
-(global-set-key (kbd "M-m") 'iy-go-to-char)
-(global-set-key (kbd "M-M") 'iy-go-to-char-backward)
-;; Join lines
-(global-set-key (kbd "M-j")
-                (lambda ()
-                  (interactive)
-                  (join-line -1)))
+(require 'key-bindings)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -54,12 +40,6 @@
   (when (file-regular-p file)
     (load file)))
 
-(global-set-key (kbd "C-x -") 'toggle-window-split)
-
-
-;; Remap old M-m to M-i (better mnemonic for back-to-indentation)
-;; We lose tab-to-tab-stop, which is no big loss in my use cases.
-(global-set-key (kbd "M-i") 'back-to-indentation)
 (load-theme 'deeper-blue)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
