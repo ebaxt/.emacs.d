@@ -1,12 +1,12 @@
-(require 'nrepl)
+(require 'cider)
 
 (declare-function nrepl-send-string-sync "nrepl.el")
 
 (defun repl-reset-app ()
   (interactive)
-  (message "Reloading application")
-  (message (nth 3 (nrepl-send-string-sync "(reset)"))))
-
-
-
+  (save-some-buffers)
+  (with-current-buffer (cider-current-repl-buffer)
+    (goto-char (point-max))
+    (insert "(user/reset)")
+    (cider-repl-return)))
 

@@ -22,7 +22,10 @@
 (global-set-key (kbd "M-i") 'back-to-indentation)
 
 ;; Reload application in nRepl
-(global-set-key (kbd "C-c M-r") 'repl-reset-app)
+(global-set-key (kbd "C-c C-.") 'repl-reset-app)
+
+;; Run toplevel form under cursor
+(global-set-key (kbd "C-c C--") 'cider-eval-expression-at-point-in-repl)
 
 ;; Magit
 (global-set-key (kbd "C-x m") 'magit-status)

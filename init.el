@@ -1,6 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 (add-to-list 'load-path "~/.emacs.d/")
 
@@ -8,29 +8,40 @@
   (require 'mac))
 
 (when (not package-archive-contents)
-  (package-refresh-contents))
+  (package-refresh-Add))
 
-;; Add in your own as you wish:
-(defvar my-packages '(starter-kit starter-kit-eshell starter-kit-js
-                                  starter-kit-lisp starter-kit-bindings
-                                  iy-go-to-char clojure-mode sass-mode nrepl
-                                  erlang expand-region ace-jump-mode clojure-test-mode
-                                  multiple-cursors)
+;; contents in your own as you wish:
+(defvar my-packages '(starter-kit starter-kit-eshell
+                                  starter-kit-js
+                                  starter-kit-lisp
+                                  starter-kit-bindings
+                                  iy-go-to-char
+                                  clojure-mode
+                                  cider
+                                  expand-region
+                                  ace-jump-mode
+                                  clojure-test-mode
+                                  multiple-cursors
+                                  clj-refactor)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
-;; NREPL settings
-(setq nrepl-popup-stacktraces nil)
-(add-to-list 'same-window-buffer-names "*nrepl'")
-(add-hook 'nrepl-mode-hook 'paredit-mode)
-(add-hook 'nrepl-interaction-mode-hook
-          'nrepl-turn-on-eldoc-mode)
+;; CIDER settings
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+
+(setq cider-popup-stacktraces nil)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+
+(require 'clj-refactor)
 
 ;; Enable clojure-test-mode
-(add-hook 'clojure-mode-hook 'clojure-test-mode)
+(add-hook 'clojure-mode-hook 'clojure-test-mode (lambda ()
+                                                  (clj-refactor-mode 1)
+                                                  ;; insert keybinding setup heres
+                                                  (cljr-add-keybindings-with-prefix "C-c C-x")))
 
 (require 'key-bindings)
 
@@ -57,3 +68,6 @@
 (setq slime-net-coding-system 'utf-8-unix)
 
 (set-face-attribute 'default nil :height 140)
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
